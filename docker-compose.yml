@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  upwork-whatsapp-bridge:
+    build: .
+    container_name: upwork-whatsapp-bridge
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      # Persist WhatsApp session data
+      - whatsapp-session:/app/.wwebjs_auth
+      - whatsapp-cache:/app/.wwebjs_cache
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  whatsapp-session:
+    driver: local
+  whatsapp-cache:
+    driver: local

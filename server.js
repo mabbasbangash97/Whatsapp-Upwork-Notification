@@ -291,7 +291,7 @@ app.post('/test', async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 7007;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
     console.log(`📡 Webhook URL: http://localhost:${PORT}/webhook/upwork`);
